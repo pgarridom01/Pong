@@ -12,19 +12,31 @@ import principal.Sprite;
 /**
  * 
  * @author Pablo Garrido Marin.
+ * 
  */
 public class PantallaGamePlayerWin implements Pantalla {
 
+	// Panel del juego
 	PanelJuego panelJuego;
 
+	// Variables para el tiempo
 	double tiempoJuego;
-	private DecimalFormat formatoDecimal;
+	private DecimalFormat formatoDecimal = new DecimalFormat("#.##");;
 
-	Font fuenteInicial = new Font("Arial", Font.BOLD, 30);
+	// Fuente y color iniciales
+	Font fuenteInicial = new Font("Times New Roman", Font.BOLD, 30);
 	Color colorLetraInicio = Color.RED;
 
+	// Sprite pelota para obtener las puntuaciones
 	Sprite pelota;
 
+	/**
+	 * Constructor de la pantalla final cuando gana el Jugador
+	 * 
+	 * @param panelJuego  Panel del Juego
+	 * @param tiempoJuego Tiempo tardado en jugar
+	 * @param pelota      Sprite pelota para obtener puntuaciones
+	 */
 	public PantallaGamePlayerWin(PanelJuego panelJuego, double tiempoJuego, Sprite pelota) {
 		this.tiempoJuego = tiempoJuego;
 		this.pelota = pelota;
@@ -32,18 +44,15 @@ public class PantallaGamePlayerWin implements Pantalla {
 	}
 
 	/**
-	 * Inicializo la pantalla con su fondo correspondiente y reescalo.
+	 * Inicializo la pantalla
 	 */
 	@Override
 	public void inicializarPantalla(PanelJuego panelJuego) {
 		this.panelJuego = panelJuego;
-
-		fuenteInicial = new Font("Times New Roman", Font.BOLD, 30);
-		formatoDecimal = new DecimalFormat("#.##");
 	}
 
 	/**
-	 * Pinto en la pantalla la imagen y la información que deseo mostrar.
+	 * Pinto en la pantalla el fondo y la informacion mostrada
 	 */
 	@Override
 	public void pintarPantalla(Graphics g) {
@@ -60,7 +69,7 @@ public class PantallaGamePlayerWin implements Pantalla {
 	}
 
 	/**
-	 * Método que cambia de color las letras gracias al reescalado.
+	 * Método para cambiar el color de las letras
 	 */
 	@Override
 	public void ejecutarFrame() {
@@ -73,15 +82,16 @@ public class PantallaGamePlayerWin implements Pantalla {
 	}
 
 	/**
-	 * Método que carga un panel u otro dependiendo de la opción que eliga el
-	 * usuario.
+	 * Método que carga una pantalla u otra
 	 */
 	@Override
 	public void pulsarRaton(MouseEvent e) {
 		switch (e.getButton()) {
+		// Boton izquierdo va a la Pantalla Inicial
 		case 1:
 			panelJuego.setPantallaActual(new PantallaInicial(panelJuego));
 			break;
+		// Boton derecho vuelve a jugar directamente
 		case 3:
 			panelJuego.setPantallaActual(new PantallaJuego(panelJuego));
 			break;

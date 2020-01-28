@@ -49,6 +49,11 @@ public class PantallaJuego implements Pantalla {
 	Font fuenteTiempo = new Font("Arial", Font.BOLD, 20);;
 	Font fuenteMarcador = new Font("Arial", Font.BOLD, 50);;
 
+	/**
+	 * Constructor de la pantalla de juego
+	 * 
+	 * @param panelJuego Panel del juego
+	 */
 	public PantallaJuego(PanelJuego panelJuego) {
 		inicializarPantalla(panelJuego);
 	}
@@ -98,23 +103,26 @@ public class PantallaJuego implements Pantalla {
 		raquetaCPU.pintarEnMundo(g);
 	}
 
+	/**
+	 * Metodo para pintar el marcador
+	 * 
+	 * @param g Graficos
+	 */
 	public void pintarMarcador(Graphics g) {
 		g.setFont(fuenteMarcador);
 
+		// Pinto la puntuacion del Jugador
 		g.drawString("" + pelota.getPuntuacionJugador1(), panelJuego.getWidth() / 2 - 50, 50);
 
+		// Pinto la puntuacion del jugador
 		g.drawString("" + pelota.getPuntuacionCPU(), panelJuego.getWidth() / 2 + 20, 50);
-
-		if (pelota.getPuntuacionJugador1() == FIN_JUEGO) {
-			panelJuego.setPantallaActual(new PantallaGamePlayerWin(panelJuego, tiempoDeJuego, pelota));
-		}
-
-		if (pelota.getPuntuacionCPU() == FIN_JUEGO) {
-			panelJuego.setPantallaActual(new PantallaFinalCPUWin(panelJuego, tiempoDeJuego, pelota));
-		}
-
 	}
 
+	/**
+	 * Metodo para pintar el tiempo de juego
+	 * 
+	 * @param g Graficos
+	 */
 	private void pintarTiempo(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.setFont(fuenteTiempo);
@@ -122,6 +130,9 @@ public class PantallaJuego implements Pantalla {
 		g.drawString(formatoDecimal.format(tiempoDeJuego / 1000000000d), 25, 25);
 	}
 
+	/**
+	 * Metodo para actualizar el tiempo de juego
+	 */
 	private void actualizarTiempo() {
 		tiempoDeJuego = System.nanoTime() - tiempoInicial;
 	}
@@ -135,8 +146,12 @@ public class PantallaJuego implements Pantalla {
 			// TODO: handle exception
 		}
 		moverSprites();
+		comprobarFinJuego();
 	}
 
+	/**
+	 * Metodo para mover los sprites del juego
+	 */
 	private void moverSprites() {
 		moverRaquetaJugador();
 		moverRaquetaCpu();
@@ -144,10 +159,16 @@ public class PantallaJuego implements Pantalla {
 				colision(raquetaCPU));
 	}
 
+	/**
+	 * Metodo para mover la raqueta del jugador
+	 */
 	public void moverRaquetaJugador() {
 		raquetaJugador.moverRaquetaJugador(panelJuego);
 	}
 
+	/**
+	 * Metodo para mover la raqueta de la CPU
+	 */
 	public void moverRaquetaCpu() {
 		if (pelota.getPosY() < raquetaCPU.getPosY()) {
 			raquetaCPU.moverRaquetaCpuArriba();
@@ -158,8 +179,27 @@ public class PantallaJuego implements Pantalla {
 
 	}
 
+	/**
+	 * Metodo para comprobar la colision de la pelota con otro sprite
+	 * 
+	 * @param raqueta Raqueta con la que compruebo la colision
+	 * @return True si colisiona false en caso contrarios
+	 */
 	public boolean colision(Sprite raqueta) {
 		return pelota.colisiona(raqueta);
+	}
+
+	/**
+	 * Metodo para comprobar el final del juego
+	 */
+	private void comprobarFinJuego() {
+		// Compruebo si el Jugador o la CPU han llegado a la puntuacion final del juego
+		if (pelota.getPuntuacionJugador1() == FIN_JUEGO) {
+			panelJuego.setPantallaActual(new PantallaGamePlayerWin(panelJuego, tiempoDeJuego, pelota));
+		}
+		if (pelota.getPuntuacionCPU() == FIN_JUEGO) {
+			panelJuego.setPantallaActual(new PantallaFinalCPUWin(panelJuego, tiempoDeJuego, pelota));
+		}
 	}
 
 	@Override

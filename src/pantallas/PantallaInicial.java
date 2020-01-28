@@ -19,33 +19,40 @@ import principal.PanelJuego;
  */
 public class PantallaInicial implements Pantalla {
 
+	// Panel del juego
 	PanelJuego panelJuego;
+
+	// Imagen inicial
 	BufferedImage imagen;
 
+	// Fuente y color inicial para las letras
 	Font fuenteInicial = new Font("Arial", Font.BOLD, 30);
 	Color colorLetraInicio = Color.RED;
 
+	/**
+	 * Constructor de la pantalla
+	 * 
+	 * @param panelJuego Panel del juego
+	 */
 	public PantallaInicial(PanelJuego panelJuego) {
 		inicializarPantalla(panelJuego);
 	}
 
 	/**
-	 * Inicializo la pantalla con su fondo correspondiente.
+	 * Metodo donde inicializo la pantalla y cargo la imagen inicial
 	 */
 	@Override
 	public void inicializarPantalla(PanelJuego panelJuego) {
 		this.panelJuego = panelJuego;
 		try {
-
 			imagen = ImageIO.read(new File(getClass().getResource("/archivos/fondoInicial.png").toURI()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
-	 * Pinto en la pantalla la imagen y la información que deseo mostrar.
+	 * Metodo para pintar la pantalla
 	 */
 	@Override
 	public void pintarPantalla(Graphics g) {
@@ -56,7 +63,7 @@ public class PantallaInicial implements Pantalla {
 	}
 
 	/**
-	 * Método que cambia de color las letras gracias al reescalado.
+	 * Metodo donde cambio el color de las letras
 	 */
 	@Override
 	public void ejecutarFrame() {
@@ -68,11 +75,19 @@ public class PantallaInicial implements Pantalla {
 		colorLetraInicio = colorLetraInicio == Color.RED ? Color.WHITE : Color.RED;
 	}
 
+	/**
+	 * Metodo para cuando pulso el raton pasa a la pantalla de juego
+	 */
 	@Override
 	public void pulsarRaton(MouseEvent e) {
 		panelJuego.setPantallaActual(new PantallaJuego(panelJuego));
 	}
 
+	/**
+	 * Metodo para reescalar la imagen inicial
+	 * 
+	 * @return Imagen inicial del fondo reescalada
+	 */
 	private Image reescalarImagen() {
 		return imagen.getScaledInstance(panelJuego.getWidth(), panelJuego.getHeight(), Image.SCALE_SMOOTH);
 	}
