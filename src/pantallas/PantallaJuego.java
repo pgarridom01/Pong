@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
@@ -26,13 +27,13 @@ public class PantallaJuego implements Pantalla {
 	private static final int ALTO_RAQUETA = 50;
 
 	// Panel del juego
-	PanelJuego panelJuego;
+	public PanelJuego panelJuego;
 
 	// Imagen inicial
 	BufferedImage imagen;
 
 	// Variables para saber si voy arriba o abajo con la raqueta
-	boolean arriba, abajo;
+	public boolean arriba, abajo;
 
 	// Puntuacion para finalizar el juego
 	final static int FIN_JUEGO = 5;
@@ -114,7 +115,7 @@ public class PantallaJuego implements Pantalla {
 		// Pinto la puntuacion del Jugador
 		g.drawString("" + pelota.getPuntuacionJugador1(), panelJuego.getWidth() / 2 - 50, 50);
 
-		// Pinto la puntuacion del jugador
+		// Pinto la puntuacion de la CPU
 		g.drawString("" + pelota.getPuntuacionCPU(), panelJuego.getWidth() / 2 + 20, 50);
 	}
 
@@ -163,7 +164,7 @@ public class PantallaJuego implements Pantalla {
 	 * Metodo para mover la raqueta del jugador
 	 */
 	public void moverRaquetaJugador() {
-		raquetaJugador.moverRaquetaJugador(panelJuego);
+		raquetaJugador.moverRaquetaJugador(this);
 	}
 
 	/**
@@ -200,6 +201,36 @@ public class PantallaJuego implements Pantalla {
 		if (pelota.getPuntuacionCPU() == FIN_JUEGO) {
 			panelJuego.setPantallaActual(new PantallaFinalCPUWin(panelJuego, tiempoDeJuego, pelota));
 		}
+	}
+
+	@Override
+	public void pulsarTecla(KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_UP:
+			arriba = true;
+			break;
+		case KeyEvent.VK_DOWN:
+			abajo = true;
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	@Override
+	public void soltarTecla(KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_UP:
+			arriba = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			abajo = false;
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	@Override

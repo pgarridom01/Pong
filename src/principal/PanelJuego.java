@@ -49,30 +49,12 @@ public class PanelJuego extends JPanel implements Runnable {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP:
-					arriba = true;
-					break;
-				case KeyEvent.VK_DOWN:
-					abajo = true;
-					break;
-				default:
-					break;
-				}
+				pantallaActual.pulsarTecla(e);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP:
-					arriba = false;
-					break;
-				case KeyEvent.VK_DOWN:
-					abajo = false;
-					break;
-				default:
-					break;
-				}
+				pantallaActual.soltarTecla(e);
 			}
 		});
 	}

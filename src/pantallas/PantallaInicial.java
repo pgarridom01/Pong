@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -90,6 +91,18 @@ public class PantallaInicial implements Pantalla {
 	 */
 	private Image reescalarImagen() {
 		return imagen.getScaledInstance(panelJuego.getWidth(), panelJuego.getHeight(), Image.SCALE_SMOOTH);
+	}
+
+	@Override
+	public void pulsarTecla(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void soltarTecla(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

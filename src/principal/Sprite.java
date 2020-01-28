@@ -9,6 +9,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import pantallas.PantallaJuego;
+
 /**
  * 
  * @author Pablo Garrido Marin.
@@ -128,6 +130,8 @@ public class Sprite {
 			velocidadY = Math.abs(velocidadY);
 
 		}
+		
+		
 	}
 
 	/**
@@ -142,14 +146,14 @@ public class Sprite {
 			puntuacionJugador1++;
 			posX = anchoPantalla / 2;
 			posY = altoPantalla / 2;
-			velocidadX = -1 * Math.abs(velocidadX);
+			velocidadX = -1 * Math.abs((int)(Math.random()*5)+3);
 		}
 		// Compruebo si hay gol de la CPU si sale por la izquierda de la pantalla
 		if (posX < -ancho) {
 			puntuacionCPU++;
 			posX = anchoPantalla / 2;
 			posY = altoPantalla / 2;
-			velocidadX = Math.abs(velocidadX);
+			velocidadX = Math.abs((int)(Math.random()*5)+3);
 		}
 	}
 
@@ -161,11 +165,12 @@ public class Sprite {
 	 */
 	private void colisionConRaquetas(boolean colisionR1, boolean colisionR2) {
 		if (colisionR1) {
-			velocidadX = -velocidadX;
+			velocidadX = -(int)(Math.random()*5)+3;
 			golpeJugador1.play();
+			
 		}
 		if (colisionR2) {
-			velocidadX = -1 * Math.abs(velocidadX);
+			velocidadX = -1 * Math.abs((int)(Math.random()*5)+3);
 			golpeJugador2.play();
 		}
 	}
@@ -175,11 +180,11 @@ public class Sprite {
 	 * 
 	 * @param panelJuego
 	 */
-	public void moverRaquetaJugador(PanelJuego panelJuego) {
-		if (PanelJuego.arriba && posY > 5) {
+	public void moverRaquetaJugador(PantallaJuego pantalla) {
+		if (pantalla.arriba && posY > 0) {
 			posY -= 5;
 		}
-		if (PanelJuego.abajo && posY < panelJuego.getHeight() - this.alto - 6) {
+		if (pantalla.abajo && posY < pantalla.panelJuego.getHeight() - this.alto) {
 			posY += 5;
 		}
 	}
@@ -225,6 +230,9 @@ public class Sprite {
 		boolean colisionY = posY < otro.posY ? (posY + alto >= otro.posY) : (otro.posY + otro.alto >= posY);
 		return colisionX && colisionY;
 	}
+	
+	
+	
 
 	// Getters y Setters
 
