@@ -130,8 +130,7 @@ public class Sprite {
 			velocidadY = Math.abs(velocidadY);
 
 		}
-		
-		
+
 	}
 
 	/**
@@ -146,14 +145,14 @@ public class Sprite {
 			puntuacionJugador1++;
 			posX = anchoPantalla / 2;
 			posY = altoPantalla / 2;
-			velocidadX = -1 * Math.abs((int)(Math.random()*5)+3);
+			velocidadX = -1 * Math.abs((int) (Math.random() * 5) + 3);
 		}
 		// Compruebo si hay gol de la CPU si sale por la izquierda de la pantalla
 		if (posX < -ancho) {
 			puntuacionCPU++;
 			posX = anchoPantalla / 2;
 			posY = altoPantalla / 2;
-			velocidadX = Math.abs((int)(Math.random()*5)+3);
+			velocidadX = Math.abs((int) (Math.random() * 5) + 3);
 		}
 	}
 
@@ -165,12 +164,12 @@ public class Sprite {
 	 */
 	private void colisionConRaquetas(boolean colisionR1, boolean colisionR2) {
 		if (colisionR1) {
-			velocidadX = -(int)(Math.random()*5)+3;
+			velocidadX = -(int) (Math.random() * 5) + 3;
 			golpeJugador1.play();
-			
+
 		}
 		if (colisionR2) {
-			velocidadX = -1 * Math.abs((int)(Math.random()*5)+3);
+			velocidadX = -1 * Math.abs((int) (Math.random() * 5) + 3);
 			golpeJugador2.play();
 		}
 	}
@@ -178,7 +177,7 @@ public class Sprite {
 	/**
 	 * Metodo para mover la raqueta del jugador
 	 * 
-	 * @param panelJuego
+	 * @param pantalla Pantalla de juego
 	 */
 	public void moverRaquetaJugador(PantallaJuego pantalla) {
 		if (pantalla.arriba && posY > 0) {
@@ -201,7 +200,7 @@ public class Sprite {
 	/**
 	 * Metodo para mover la raqueta de la CPU hacia abajo
 	 * 
-	 * @param panelJuego
+	 * @param panelJuego Panel de Juego
 	 */
 	public void moverRaquetaCpuAbajo(PanelJuego panelJuego) {
 		if (posY < panelJuego.getHeight() - this.alto) {
@@ -212,7 +211,7 @@ public class Sprite {
 	/**
 	 * Metodo para pintar el Sprite en pantalla
 	 * 
-	 * @param g
+	 * @param g Graficos
 	 */
 	public void pintarEnMundo(Graphics g) {
 		g.drawImage(buffer, posX, posY, null);
@@ -222,17 +221,14 @@ public class Sprite {
 	 * Comprueba si hay colisión entre este Sprite y otro que viene por parámetros.
 	 * La colisión es cuadrada.
 	 * 
-	 * @param otro
-	 * @return
+	 * @param otro Sprite que se le pasa para comprobar la colision
+	 * @return True si hay colision en los dos ejes y false si no hay
 	 */
 	public boolean colisiona(Sprite otro) {
 		boolean colisionX = posX < otro.posX ? (posX + ancho >= otro.posX) : (otro.posX + otro.ancho >= posX);
 		boolean colisionY = posY < otro.posY ? (posY + alto >= otro.posY) : (otro.posY + otro.alto >= posY);
 		return colisionX && colisionY;
 	}
-	
-	
-	
 
 	// Getters y Setters
 
